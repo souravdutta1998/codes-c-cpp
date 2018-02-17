@@ -2,12 +2,11 @@
 using namespace std;
 
 void reversenum(int n){
-    int i=1, temp=0;
+    int i=10, temp=0;
     while(n!=0)
     {
         temp= (temp*i) + (n%10);
         n=n/10;
-        i=10;
     }
     cout<<"The reversed number is: "<<temp;
 }
