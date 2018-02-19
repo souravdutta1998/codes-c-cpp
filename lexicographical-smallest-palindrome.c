@@ -4,7 +4,7 @@ int main()
 {
     char s[30], n[30];
     scanf("%s",s);
-    int i=0,j=0,k, flag=0;
+    int i,j=0,k;
     i=strlen(s); 
     while(s[j]!='\0'){
         if(s[j]=='.' && s[i-1-j]=='.'){
