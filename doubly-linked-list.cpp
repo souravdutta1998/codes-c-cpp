@@ -3,19 +3,17 @@ using namespace std;
 class Node{
     public:
     int data;
-    Node *prev;
     Node *next;
+    Node *prev;
     Node(int n = 0){
         data = n;
         prev = NULL;
         next = NULL;
     }
 };
-
 class Nodetype{
     Node *head;
     int size;
-    
     public:
     Nodetype(){
         head = NULL;
@@ -23,12 +21,11 @@ class Nodetype{
     }
     void insert(int item, int i){
         Node *ptr = new Node(item);
-        if(i<0 && i>size) return;
+        if(i<0 || i>size) return;
         else if(i==0){
-            if(head!=NULL)
-            {   
-                ptr->next = head;
+            if(head!=NULL){
                 head->prev = ptr;
+                ptr->next = head;
             }
             head = ptr;
             size++;
@@ -38,20 +35,48 @@ class Nodetype{
             Node *temp = head;
             while(temp!=NULL && idx<i){
                 temp = temp->next;
+                idx++;
             }
-            if(i!=size){
+            if(temp->next!=NULL){
                 Node *temp2 = temp->next;
                 ptr->next = temp2;
                 temp2->prev = ptr;
             }
             ptr->prev = temp;
-            temp ->next = ptr;
+            temp->next = ptr;
             size++;
+        }
+    }
+    void deletenode(int i){
+        if(i<0 || i>size) return;
+        else if(head == NULL) cout<<"No more deletions are possible\n";
+        else if(i ==0 ){
+            Node *temp = head;
+            head = head->next;
+            delete temp;
+            size--;
+        }
+        else {
+            Node *temp = head;
+            int idx =0;
+            while(temp!=NULL && idx<i){
+                temp = temp->next;
+                idx++;
+            }
+            Node *left = temp->prev;
+            
+            if(temp->next!=NULL){
+                left->next = temp->next;
+                (temp->next)->prev = left;
+            }
+            else{ left->next = NULL; }
+            delete temp;
+            size--;
         }
     }
     void print(){
         Node *temp = head;
-        while(temp!=NULL){
+        while(temp){
             cout<<temp->data<<" ";
             temp = temp->next;
         }
@@ -61,12 +86,14 @@ class Nodetype{
         return size;
     }
 };
-
 int main(){
     Nodetype t;
-    t.insert(3, 0);
+    t.insert(1, 0);
+    t.insert(3, 1);
     t.insert(2, 1);
-    t.insert(1, 1);
+    t.insert(4, 3);
+    t.deletenode(0);
+    t.deletenode(2);
     t.print();
     cout<<t.getsize();
     return 0;
