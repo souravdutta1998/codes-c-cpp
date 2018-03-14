@@ -54,17 +54,29 @@ class nodetype {
         }
         afy = temp2->next;
        // cout<<temp1->data<<" "<<temp2->data;
-       if(befx==NULL){
-            befx= temp2;  
-            head = befx;
+       if(temp1->data!=x || temp2->data!=y){
+           cout<<"Either of the values not found in the list. Hence cannot be swapped!\n";
+           return;
        }
+       if(afx == temp2){
+           if(befx==NULL) head = temp2;
+           else befx->next = temp2;
+           temp2->next = temp1;
+           temp1->next = afy;
+           return;
+       }
+       if(afy == temp1){
+           if(befy==NULL) head = temp1;
+           else befy->next = temp1;
+           temp1->next = temp2;
+           temp2->next = afx;
+           return;
+       }
+        if(befx==NULL) head = temp2;
         else befx->next = temp2;
         temp2->next = afx;
         
-        if(befy == NULL){
-            befy = temp1;
-            head = befy;
-        }
+        if(befy == NULL) head = temp1;
         else befy->next = temp1;
         temp1->next = afy;
     }
@@ -78,7 +90,7 @@ int main() {
 	t.insert(2);
 	t.insert(1);
 	t.print();
-	int x = 3, y =5;
+	int x = 4, y =5;
 	t.swap( x, y);
 	t.print();
 	return 0;
