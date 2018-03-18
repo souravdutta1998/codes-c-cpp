@@ -28,11 +28,9 @@ class Nodetype{
     void print(){
         if(head == NULL) return;
         Node *temp = head;
-        int i=0;
-        while(temp &&i<20){
+        while(temp){
             cout<<temp->data<<" ";
             temp = temp->next;
-            i++;
         }
         cout<<"\n";
     }
@@ -59,13 +57,11 @@ class Nodetype{
         }
         if(found == 1){
             slow = head;
-            int count =1;
             while(slow && fast){
                 if(slow == fast) { 
                     cout<<"start node of loop has address "<<slow<<" and value "<<slow->data<<endl;
                     return;
                 }
-                count++;
                 slow=slow->next;
                 fast = fast->next;
             }
@@ -149,9 +145,9 @@ int main()
     t.insertb(0);
     t.print();
     
-    t.createloop(3);
-    t.print();
-  //  t.getnthfromend(3);
+     //  t.getnthfromend(3);
+    t.createloop(3); //last node of the linked list is made to point to the third node
+ 
     cout<<(t.detectloop() ? "yes" : "no")<<endl;
     t.detectStartOfLoop();
     t.findLengthOfLoop();
