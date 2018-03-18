@@ -59,14 +59,38 @@ class Nodetype{
         }
         if(found == 1){
             slow = head;
+            int count =1;
             while(slow && fast){
                 if(slow == fast) { 
                     cout<<"start node of loop has address "<<slow<<" and value "<<slow->data<<endl;
                     return;
                 }
+                count++;
                 slow=slow->next;
                 fast = fast->next;
             }
+        }
+        else cout<<"no loop \n";
+    }
+    void findLengthOfLoop(){
+        Node *slow = head; Node* fast = head;
+        int found =0;
+        while(slow && fast && fast->next){
+            slow = slow->next;
+            fast = fast->next->next;
+            if(slow==fast){
+                found=1;
+                break;
+            }
+        } 
+        if(found == 1){
+            int count =1;
+            slow=slow->next;
+            while(slow!=fast){
+                slow = slow->next;
+                count++;
+            }
+            cout<<"the length of loop is: "<<count<<endl;
         }
         else cout<<"no loop \n";
     }
@@ -130,5 +154,6 @@ int main()
   //  t.getnthfromend(3);
     cout<<(t.detectloop() ? "yes" : "no")<<endl;
     t.detectStartOfLoop();
+    t.findLengthOfLoop();
     return 0;
 }
